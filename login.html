@@ -47,12 +47,13 @@ form.addEventListener('submit', async (event) => {
 
   const formData = new FormData(form);
   const email = Object.entries(formData)
-    .find(([key, value]) => key === 'email').value;
+    .find(([key, value]) => key === 'email')
+    [1];
   const password = Object.entries(formData)
-    .find(([key, value]) => key === 'password').value;
+    .find(([key, value]) => key === 'password')
+    [1];
 
   const response = await fetch('/login', {
-      mode: 'no-cors',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -78,6 +79,7 @@ form.addEventListener('submit', async (event) => {
     }
   }
 });
+
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>    
       </body>
