@@ -18,7 +18,8 @@ db.once('open', function(callback) {
 var app = express();
 
 app.use(cors({
-  origin: 'https://log-in-service.onrender.com'
+  origin: 'https://log-in-service.onrender.com',
+  methods: ["GET", "POST"],
 }))
 
 app.use(bodyParser.json());
