@@ -48,7 +48,7 @@ app.post('/login', function(req, res) {
         }
       } else {
         res.set('Access-Control-Allow-Origin', 'https://log-in-service.onrender.com');
-        res.redirect("https://sign-up-service.onrender.com");
+        res.redirect("https://sign-up-service.onrender.com/signup.html");
       }
     }
   });
