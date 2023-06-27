@@ -42,47 +42,42 @@
         <script>
           const form = document.getElementById('myForm');
 
-form.addEventListener('submit', async (event) => {
-  event.preventDefault();
+          form.addEventListener('submit', async (event) => {
+            event.preventDefault();
+          
+            const formData = new FormData(form);
+            const email = formData.get('email');
+            const password = formData.get('password');
 
-  const formData = new FormData(form);
-  const emailEntry = Object.entries(formData).find(([key, value]) => key === 'email');
-  const passwordEntry = Object.entries(formData).find(([key, value]) => key === 'password');
-
-  if (emailEntry && passwordEntry) {
-    const email = emailEntry[1];
-    const password = passwordEntry[1];
-
-    const response = await fetch('/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ email, password })
-    });
-
-    if (response.ok) {
-      // After receiving successful login response
-      const { name } = await response.json();
-      localStorage.setItem('username', name); // Store the user's name in local storage
-    } else {
-      const result = await response.json();
-      if (response.status === 401) {
-        // Incorrect password, update CSS to show error message
-        $('.text-danger').css('visibility', 'visible');
-      } else if (response.status === 404) {
-        // User not found, redirect to sign-up page
-        window.location.href = 'https://sign-up-service.onrender.com'; // Replace '/signup.html' with your actual sign-up page URL
-      } else {
-        // Other error occurred
-        console.error(result.error);
-      }
-    }
-  } else {
-    console.error('Email or password not found in form data');
-  }
-});
-
+            console.log(JSON.stringify({ email, password }));
+          
+            const response = await fetch('/login', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ email, password })
+            });
+          
+            if (response.ok) {
+              // After receiving successful login response
+              const { name } = await response.json();
+              localStorage.setItem('username', name); // Store the user's name in local storage
+            } 
+            else {
+              const result = await response.json();
+              if (response.status === 401) {
+                // Incorrect password, update CSS to show error message
+                $('.text-danger').css('visibility', 'visible');
+              } else if (response.status === 404) {
+                // User not found, redirect to sign-up page
+                window.location.href = 'https://sign-up-service.onrender.com'; // Replace '/signup.html' with your actual sign-up page URL
+              } else {
+                // Other error occurred
+                console.error(result.error);
+              }
+            }
+          });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>    
       </body>
