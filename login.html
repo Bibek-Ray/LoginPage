@@ -20,7 +20,7 @@
           </div>
     
           <div class="modal-body p-5 pt-0">
-            <form action="/login" method="post" id="myForm">
+            <form action="/login" method="POST" id="myForm">
               <div class="form-floating mb-3">
                 <input type="email" name="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com">
                 <label for="floatingInput">Email address</label>
@@ -50,7 +50,7 @@ form.addEventListener('submit', async (event) => {
   const password = formData.get('password');
 
   const response = await fetch('/login', {
-    methods: ['GET', 'POST'],
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
