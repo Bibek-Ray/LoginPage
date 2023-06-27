@@ -47,11 +47,9 @@ form.addEventListener('submit', async (event) => {
 
   const formData = new FormData(form);
   const email = Object.entries(formData)
-    .find(([key, value]) => key === 'email')
-    .value;
+    .find(([key, value]) => key === 'email').value;
   const password = Object.entries(formData)
-    .find(([key, value]) => key === 'password')
-    .value;
+    .find(([key, value]) => key === 'password').value;
 
   const response = await fetch('/login', {
       mode: 'no-cors',
