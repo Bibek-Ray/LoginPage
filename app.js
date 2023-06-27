@@ -31,9 +31,9 @@ app.post('/login', function(req, res) {
       res.status(500).json({ error: 'An error occurred' });
     } else {
       if (result) {
-        const { email, password } = result;
+        const { email, password, name } = result;
         if (Password === password) {
-          res.status(200).json({ message: 'Login successful' });
+          res.status(200).json({name: name});
         } else {
           res.status(401).json({ error: 'Incorrect password' });
         }
