@@ -42,41 +42,44 @@
         <script>
           const form = document.getElementById('myForm');
 
-          form.addEventListener('submit', async (event) => {
-            event.preventDefault();
-          
-            const formData = new FormData(form);
-            const email = formData.get('email');
-            const password = formData.get('password');
-          
-            const response = await fetch('/login', {
-                mode: 'no-cors',
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({ email, password })
-            });
-          
-            if (response.status === 200) {
-              // After receiving successful login response
-              const { name } = await response.json();
-              localStorage.setItem('username', name); // Store the user's name in local storage
-            } else {
-                console.log(response);
-              const result = await response.json();
-              if (response.status === 401) {
-                // Incorrect password, update CSS to show error message
-                $('.text-danger').css('visibility', 'visible');
-              } else if (response.status === 404) {
-                // User not found, redirect to sign-up page
-                window.location.href = 'https://sign-up-service.onrender.com'; // Replace '/signup.html' with your actual sign-up page URL
-              } else {
-                // Other error occurred
-                console.error(result.error);
-              }
-            }
-          });
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(form);
+  const email = Object.entries(formData)
+    .find(([key, value]) => key === 'email')
+    .value;
+  const password = Object.entries(formData)
+    .find(([key, value]) => key === 'password')
+    .value;
+
+  const response = await fetch('/login', {
+      mode: 'no-cors',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ email, password })
+  });
+
+  if (response.ok) {
+    // After receiving successful login response
+    const { name } = await response.json();
+    localStorage.setItem('username', name); // Store the user's name in local storage
+  } else {
+    const result = await response.json();
+    if (response.status === 401) {
+      // Incorrect password, update CSS to show error message
+      $('.text-danger').css('visibility', 'visible');
+    } else if (response.status === 404) {
+      // User not found, redirect to sign-up page
+      window.location.href = 'https://sign-up-service.onrender.com'; // Replace '/signup.html' with your actual sign-up page URL
+    } else {
+      // Other error occurred
+      console.error(result.error);
+    }
+  }
+});
         </script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>    
       </body>
