@@ -1,8 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
-const cors = require("cors");
-app.use(cors());
 
 const mongoose = require("mongoose");
 mongoose.connect("mongodb+srv://bibekraydec:Agent47isback@cluster0.ffsrbxe.mongodb.net/LoginDB?retryWrites=true&w=majority", {
@@ -47,9 +45,6 @@ app.post('/login', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-  res.set({
-    'Access-control-Allow-Origin': '*'
-    });
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
