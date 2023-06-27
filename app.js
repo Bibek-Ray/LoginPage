@@ -45,6 +45,9 @@ app.post('/login', function(req, res) {
 });
 
 app.get('/', function(req, res) {
+  res.set({
+    'Access-control-Allow-Origin': '*'
+    });
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
