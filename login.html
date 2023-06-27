@@ -63,7 +63,7 @@
               const { name } = await response.json();
               localStorage.setItem('username', name); // Store the user's name in local storage
             } else {
-                console.log(eresponse);
+                console.log(response);
               const result = await response.json();
               if (response.status === 401) {
                 // Incorrect password, update CSS to show error message
