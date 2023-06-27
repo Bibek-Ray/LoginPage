@@ -58,8 +58,9 @@
             });
           
             if (response.ok) {
-              // Login successful, proceed to the welcome page
-              window.location.href = '/welcome.html'; // Replace '/welcome.html' with your actual welcome page URL
+              // After receiving successful login response
+              const { name } = await response.json();
+              localStorage.setItem('username', name); // Store the user's name in local storage
             } else {
               const result = await response.json();
               if (response.status === 401) {
