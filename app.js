@@ -40,11 +40,14 @@ app.post('/login', function(req, res) {
       if (result) {
         const { email, password, name } = result;
         if (Password === password) {
+          res.set('Access-Control-Allow-Origin', 'https://log-in-service.onrender.com');
           res.status(200).json({ name: name });
         } else {
+          res.set('Access-Control-Allow-Origin', 'https://log-in-service.onrender.com');
           res.status(401).json({ error: 'Incorrect password' });
         }
       } else {
+        res.set('Access-Control-Allow-Origin', 'https://log-in-service.onrender.com');
         res.redirect("https://sign-up-service.onrender.com");
       }
     }
@@ -52,9 +55,7 @@ app.post('/login', function(req, res) {
 });
 
 app.get('/', function(req, res) {
-  res.set({
-    'Access-control-Allow-Origin': '*'
-    });
+  res.set('Access-Control-Allow-Origin', 'https://log-in-service.onrender.com');
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
