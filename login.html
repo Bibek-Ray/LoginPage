@@ -50,6 +50,7 @@
             const password = formData.get('password');
           
             const response = await fetch('/login', {
+                mode: 'no-cors',
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json'
