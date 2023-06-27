@@ -58,7 +58,7 @@
               body: JSON.stringify({ email, password })
             });
           
-            if (response.ok) {
+            if (response.status === 200) {
               // After receiving successful login response
               const { name } = await response.json();
               localStorage.setItem('username', name); // Store the user's name in local storage
