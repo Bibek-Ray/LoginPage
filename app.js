@@ -1,6 +1,8 @@
 var express = require("express");
 var bodyParser = require("body-parser");
 var path = require("path");
+const cors = require("cors");
+
 
 const mongoose = require("mongoose");
 mongoose.connect("mongodb+srv://bibekraydec:Agent47isback@cluster0.ffsrbxe.mongodb.net/LoginDB?retryWrites=true&w=majority", {
@@ -14,6 +16,10 @@ db.once('open', function(callback) {
 })
 
 var app = express();
+
+app.use(cors({
+  origin: 'https://log-in-service.onrender.com'
+}))
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
@@ -33,7 +39,7 @@ app.post('/login', function(req, res) {
       if (result) {
         const { email, password, name } = result;
         if (Password === password) {
-          res.status(200).json({name: name});
+          res.status(200).json({ name: name });
         } else {
           res.status(401).json({ error: 'Incorrect password' });
         }
@@ -45,6 +51,9 @@ app.post('/login', function(req, res) {
 });
 
 app.get('/', function(req, res) {
+  res.set({
+    'Access-control-Allow-Origin': '*'
+    });
   res.sendFile(path.join(__dirname, 'login.html'));
 });
 
