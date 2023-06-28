@@ -17,10 +17,12 @@ db.once('open', function(callback) {
 
 var app = express();
 
-app.use(cors({
-  origin: 'https://log-in-service.onrender.com',
-  methods: ["GET", "POST"],
-}))
+app.options('/login', function(req, res) {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, access-control-allow-credentials');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.send();
+});
 
 app.use(bodyParser.json());
 app.use(express.static('public'));
